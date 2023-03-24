@@ -8,7 +8,7 @@
     tools:context=".Welcome">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/brief_description_neuroscience"
         android:layout_width="369dp"
         android:layout_height="155dp"
         android:layout_marginTop="27dp"
@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.129" />
 
     <TextView
-        android:id="@+id/textView40"
+        android:id="@+id/access_description_text"
         android:layout_width="420dp"
         android:layout_height="63dp"
         android:fontFamily="@font/avenir"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/exitWBtn"
+        android:id="@+id/exit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nextWBtn"
+        android:id="@+id/next_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="308dp"
