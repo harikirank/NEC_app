@@ -45,7 +45,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     private Bitmap mResultsBitmap;
     private AppExecutor mAppExecutor;
 
-    private static int RESULT_LOAD_IMAGE = 1;
+    private static final int RESULT_LOAD_IMAGE = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private static final int REQUEST_STORAGE_PERMISSION = 1;
 
@@ -59,8 +59,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
 
-        //Get rid of action bar in this Class/Activity
-        getSupportActionBar().hide();
+        hideActionBar();
+
 
         mAppExecutor = new AppExecutor();
 
@@ -89,19 +89,22 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         cameraButton.setOnClickListener(this);
         processBlackAndWhiteImage.setOnClickListener(this);
         viewButton.setOnClickListener(this);
+    }
 
-    }//End of onCreate method
+    private void hideActionBar() {
+        getSupportActionBar().hide();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.imageActivity_backBtn:
             case R.id.imageActivity_homeBtn:
                 Intent homePageIntent = new Intent(ImageActivity.this, homepage.class);
                 startActivity(homePageIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            break;
+                break;
             case R.id.camera_Btn:
                 // Check for the external storage permission
                 if (ContextCompat.checkSelfPermission(getApplicationContext(),
@@ -115,11 +118,11 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                     launchCamera();
                 }
 
-            break;
+                break;
             case R.id.photoGallery_Btn:
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
-            break;
+                break;
             case R.id.processBWImage_Btn:
 
                 new MyAsyncTask().execute();
@@ -131,19 +134,19 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                 Bitmap test = imagePatches.showPatches(imagePatches.transpose(mixing), 25);
                 Uri imageURI = getImageUri(getBaseContext(), test);
                 String str = imageURI.toString();
-                ImageProcessedIntent.putExtra("str",str);
+                ImageProcessedIntent.putExtra("str", str);
                 startActivity(ImageProcessedIntent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
-        }//End of switch
+        }
 
-    }//End of onCLick method
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // If the Gallery capture activity was called and was successful
-        if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
             android.net.Uri imageData = data.getData();
             photoPreview.setImageURI(imageData);
         }
@@ -158,9 +161,9 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         }
 
         processBlackAndWhiteImage.setVisibility(View.VISIBLE);
-        process.setVisibility(View.VISIBLE );
+        process.setVisibility(View.VISIBLE);
         viewButton.setVisibility(View.VISIBLE);
-    }//End of onActivityResult
+    }
 
 
     @Override
@@ -177,8 +180,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             }
-        }//End of switch-case
-    }//End of onRequestPermissionResult method
+        }
+    }
 
 
     /**
@@ -214,7 +217,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
-    }//End of launchCamera method
+    }
 
 
     /**
@@ -237,17 +240,16 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             BitmapUtils.saveImage(this, mResultsBitmap);
 
         });
-        //Toast.makeText(this, "In ProcessAndSetImage", Toast.LENGTH_SHORT).show();
-    }//End of processAndSetImage method
+    }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
-    }//End of getImageUri method
+    }
 
-    public class MyAsyncTask extends AsyncTask<String, Integer, Boolean>{
+    public class MyAsyncTask extends AsyncTask<String, Integer, Boolean> {
         private ProgressDialog progressDialog;
 
         @Override
@@ -275,13 +277,13 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
-        private void heavyProcessImage(){
+        private void heavyProcessImage() {
             BitmapDrawable drawable = (BitmapDrawable) photoPreview.getDrawable();
             Bitmap bitmap = drawable.getBitmap();
             patch_data = imagePatches.get_patches(50000, 8, bitmap);
             FastICA fastICA = new FastICA();
             try {
-                fastICA.fit(imagePatches.transpose(patch_data),25);
+                fastICA.fit(imagePatches.transpose(patch_data), 25);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -289,7 +291,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             //Log.d("OUTPUT", mixing.toString());
             Bitmap test = imagePatches.showPatches(imagePatches.transpose(mixing), 25);
             //storeImage(test);
-            if(test == null)
+            if (test == null)
                 Log.d("NULL", "Bitmap is Null");
             Bitmap testBit = ((BitmapDrawable) photoPreview.getDrawable()).getBitmap();
             Uri imageURI = getImageUri(getBaseContext(), test);
@@ -305,9 +307,9 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                     photoPreview.setImageURI(imageURI);
                 }
             });
-        }//End of heavyProcessImage
+        }
 
 
-    }//End of MyAsyncTask
+    }
 
-}//End of ImageActivity class
+}
