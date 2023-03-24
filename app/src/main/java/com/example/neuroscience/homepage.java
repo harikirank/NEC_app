@@ -3,14 +3,12 @@ package com.example.neuroscience;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,12 +80,12 @@ public class homepage extends AppCompatActivity implements View.OnClickListener{
                 startActivity(soundActivityIntent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
-            case R.id.exitWBtn:
+            case R.id.exit_text:
                 Intent backIntent = new Intent(homepage.this, homepage.class);
                 startActivity(backIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
-            case R.id.nextWBtn:
+            case R.id.next_text:
                 Intent page1Intent = new Intent(homepage.this, aboutAppPage1.class);
                 startActivity(page1Intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -105,8 +103,8 @@ public class homepage extends AppCompatActivity implements View.OnClickListener{
             setContentView(R.layout.activity_welcome);
             getSupportActionBar().hide();
 
-            exitWButton = findViewById(R.id.exitWBtn);
-            nextWButton = findViewById(R.id.nextWBtn);
+            exitWButton = findViewById(R.id.exit_text);
+            nextWButton = findViewById(R.id.next_text);
 
 
             exitWButton.setOnClickListener(this);
