@@ -18,8 +18,8 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
         //Get rid of action bar in this Class/Activity
         getSupportActionBar().hide();
 
-        exitWButton = findViewById(R.id.exitWBtn);
-        nextWButton = findViewById(R.id.nextWBtn);
+        exitWButton = findViewById(R.id.exit_text);
+        nextWButton = findViewById(R.id.next_text);
 
 
         exitWButton.setOnClickListener(this);
@@ -31,12 +31,12 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.exitWBtn:
+            case R.id.exit_text:
                 Intent backIntent = new Intent(Welcome.this, homepage.class);
                 startActivity(backIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
-            case R.id.nextWBtn:
+            case R.id.next_text:
                 Intent page1Intent = new Intent(Welcome.this, aboutAppPage1.class);
                 startActivity(page1Intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
