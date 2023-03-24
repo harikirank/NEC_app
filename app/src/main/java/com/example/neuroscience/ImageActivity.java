@@ -16,20 +16,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +76,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
         viewButton = findViewById(R.id.textView8);
         processBlackAndWhiteImage = findViewById(R.id.processBWImage_Btn);
-        process = findViewById(R.id.textView2);
+        process = findViewById(R.id.process_image);
 
         //Hide image process button/text until photo is pushed to imageview
         processBlackAndWhiteImage.setVisibility(View.GONE);
